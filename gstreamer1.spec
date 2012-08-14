@@ -1,12 +1,12 @@
 %global         majorminor      1.0
 
-%global         _glib2                  2.31.14
+%global         _glib2                  2.32.0
 %global         _libxml2                2.4.0
 %global         _gobject_introspection  1.31.1
 
 Name:           gstreamer1
-Version:        0.11.92
-Release:        2%{?dist}
+Version:        0.11.93
+Release:        1%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 License:        LGPLv2+
@@ -183,6 +183,10 @@ find $RPM_BUILD_ROOT -name '*.a' -exec rm -f {} ';'
 
 
 %changelog
+* Tue Aug 14 2012 Brian Pepple <bpepple@fedoraproject.org> - 0.11.93-1
+- Update to 0.11.93.
+- Bump minimum version of glib2 needed.
+
 * Fri Aug  3 2012 Brian Pepple <bpepple@fedoraproject.org> - 0.11.92-2
 - Use %%global instead of %%define.
 - Remove rpath.
