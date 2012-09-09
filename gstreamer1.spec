@@ -6,13 +6,16 @@
 
 Name:           gstreamer1
 Version:        0.11.93
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 License:        LGPLv2+
 URL:            http://gstreamer.freedesktop.org/
 Source0:        http://gstreamer.freedesktop.org/src/gstreamer/gstreamer-%{version}.tar.xz
-## TODO: Create new patch for rpm provides.
+## For GStreamer RPM provides
+Patch0:         gstreamer-inspect-rpm-format.patch
+Source1:        gstreamer1.prov
+Source2:        gstreamer1.attr
 
 BuildRequires:  glib2-devel >= %{_glib2}
 BuildRequires:  libxml2-devel >= %{_libxml2}
@@ -77,6 +80,7 @@ GStreamer streaming media framework.
 
 %prep
 %setup -q -n gstreamer-%{version}
+%patch0 -p1 -b .rpm-provides
 
 
 %build
@@ -92,7 +96,7 @@ make %{?_smp_mflags}
 %install
 rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
-
+# Remove rpath.
 chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libgstbase-1.0.so.0.0.0
 chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libgstcheck-1.0.so.0.0.0
 chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libgstcontroller-1.0.so.0.0.0 
@@ -104,10 +108,13 @@ chrpath --delete $RPM_BUILD_ROOT%{_bindir}/gst-launch-1.0
 chrpath --delete $RPM_BUILD_ROOT%{_bindir}/gst-typefind-1.0
 
 %find_lang gstreamer-%{majorminor}
-
+# Clean out files that should not be part of the rpm.
 find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 find $RPM_BUILD_ROOT -name '*.a' -exec rm -f {} ';'
-
+# Add the provides script
+install -m0755 -D %{SOURCE1} $RPM_BUILD_ROOT%{_rpmconfigdir}/gstreamer1.prov
+# Add the gstreamer plugin file attribute entry (rpm >= 4.9.0)
+install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer1.attr
 
 %post -p /sbin/ldconfig
 
@@ -137,6 +144,9 @@ find $RPM_BUILD_ROOT -name '*.a' -exec rm -f {} ';'
 %{_bindir}/gst-inspect-%{majorminor}
 %{_bindir}/gst-launch-%{majorminor}
 %{_bindir}/gst-typefind-%{majorminor}
+
+%{_rpmconfigdir}/gstreamer1.prov
+%{_rpmconfigdir}/fileattrs/gstreamer1.attr
 
 %doc %{_mandir}/man1/gst-inspect-%{majorminor}.*
 %doc %{_mandir}/man1/gst-launch-%{majorminor}.*
@@ -183,6 +193,10 @@ find $RPM_BUILD_ROOT -name '*.a' -exec rm -f {} ';'
 
 
 %changelog
+* Sat Sep  8 2012 Brian Pepple <bpepple@fedoraproject.org> - 0.11.93-2
+- Add patch to gst-inspect to generate RPM provides
+- Add RPM find-provides script
+
 * Tue Aug 14 2012 Brian Pepple <bpepple@fedoraproject.org> - 0.11.93-1
 - Update to 0.11.93.
 - Bump minimum version of glib2 needed.
