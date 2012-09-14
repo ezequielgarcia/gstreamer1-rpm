@@ -5,8 +5,8 @@
 %global         _gobject_introspection  1.31.1
 
 Name:           gstreamer1
-Version:        0.11.93
-Release:        2%{?dist}
+Version:        0.11.94
+Release:        1%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 License:        LGPLv2+
@@ -193,6 +193,9 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %changelog
+* Fri Sep 14 2012 Brian Pepple <bpepple@fedoraproject.org> - 0.11.94-1
+- Update to 0.11.94.
+
 * Sat Sep  8 2012 Brian Pepple <bpepple@fedoraproject.org> - 0.11.93-2
 - Add patch to gst-inspect to generate RPM provides
 - Add RPM find-provides script
