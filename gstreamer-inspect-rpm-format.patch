@@ -1,6 +1,6 @@
-diff -urp gstreamer-0.11.93.orig/tools/gst-inspect.c gstreamer-0.11.93/tools/gst-inspect.c
---- gstreamer-0.11.93.orig/tools/gst-inspect.c	2012-09-08 16:34:33.450117749 -0400
-+++ gstreamer-0.11.93/tools/gst-inspect.c	2012-09-08 16:35:02.710751889 -0400
+diff -urp gstreamer-0.11.94.orig/tools/gst-inspect.c gstreamer-0.11.94/tools/gst-inspect.c
+--- gstreamer-0.11.94.orig/tools/gst-inspect.c	2012-09-01 18:02:10.000000000 -0400
++++ gstreamer-0.11.94/tools/gst-inspect.c	2012-09-14 08:04:52.690369047 -0400
 @@ -1350,9 +1350,225 @@ print_element_info (GstElementFactory *
    return 0;
  }
@@ -95,9 +95,8 @@ diff -urp gstreamer-0.11.93.orig/tools/gst-inspect.c gstreamer-0.11.93/tools/gst
 +    return 1;
 +  return 0;
 +}
- 
- static void
--print_plugin_automatic_install_info_codecs (GstElementFactory * factory)
++
++static void
 +print_gst_structure_for_rpm (const char *type_name, GstStructure * s)
 +{
 +  guint i, num_fields;
@@ -221,8 +220,9 @@ diff -urp gstreamer-0.11.93.orig/tools/gst-inspect.c gstreamer-0.11.93/tools/gst
 +  }
 +  g_list_free (strings);
 +}
-+
-+static void
+ 
+ static void
+-print_plugin_automatic_install_info_codecs (GstElementFactory * factory)
 +print_plugin_automatic_install_info_codecs (GstElementFactory * factory,
 +    gboolean rpm_format)
  {
@@ -331,9 +331,9 @@ diff -urp gstreamer-0.11.93.orig/tools/gst-inspect.c gstreamer-0.11.93/tools/gst
    gboolean print_aii = FALSE;
 +  gboolean print_aii_rpm = FALSE;
    gboolean uri_handlers = FALSE;
- #ifndef GST_DISABLE_OPTION_PARSING
-   GOptionEntry options[] = {
-@@ -1516,6 +1754,9 @@ main (int argc, char *argv[])
+   gboolean check_exists = FALSE;
+   gchar *min_version = NULL;
+@@ -1521,6 +1759,9 @@ main (int argc, char *argv[])
                "or all plugins provide.\n                                       "
                "Useful in connection with external automatic plugin "
                "installation mechanisms"), NULL},
@@ -342,8 +342,8 @@ diff -urp gstreamer-0.11.93.orig/tools/gst-inspect.c gstreamer-0.11.93/tools/gst
 +              "Provides compatible-format"), NULL},
      {"plugin", '\0', 0, G_OPTION_ARG_NONE, &plugin_name,
          N_("List the plugin contents"), NULL},
-     {"uri-handlers", 'u', 0, G_OPTION_ARG_NONE, &uri_handlers,
-@@ -1602,7 +1843,7 @@ main (int argc, char *argv[])
+     {"exists", '\0', 0, G_OPTION_ARG_NONE, &check_exists,
+@@ -1650,7 +1891,7 @@ main (int argc, char *argv[])
        /* if there is such a plugin, print out info */
        if (plugin) {
          if (print_aii) {
@@ -352,7 +352,7 @@ diff -urp gstreamer-0.11.93.orig/tools/gst-inspect.c gstreamer-0.11.93/tools/gst
          } else {
            print_plugin_info (plugin);
            print_plugin_features (plugin);
-@@ -1615,13 +1856,17 @@ main (int argc, char *argv[])
+@@ -1663,13 +1904,17 @@ main (int argc, char *argv[])
  
            if (plugin) {
              if (print_aii) {
@@ -363,7 +363,7 @@ diff -urp gstreamer-0.11.93.orig/tools/gst-inspect.c gstreamer-0.11.93/tools/gst
                print_plugin_features (plugin);
              }
            } else {
--            g_print (_("Could not load plugin file: %s\n"), error->message);
+-            g_printerr (_("Could not load plugin file: %s\n"), error->message);
 +            if (!print_aii_rpm)
 +              g_print (_("Could not load plugin file: %s\n"), error->message);
 +            else
