@@ -87,7 +87,6 @@ GStreamer streaming media framework.
 %configure \
   --with-package-name='Fedora GStreamer package' \
   --with-package-origin='http://download.fedoraproject.org' \
-  --enable-gtk-doc \
   --enable-debug \
   --disable-tests --disable-examples
 make %{?_smp_mflags}
