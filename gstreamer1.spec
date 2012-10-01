@@ -6,7 +6,7 @@
 
 Name:           gstreamer1
 Version:        1.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 License:        LGPLv2+
@@ -90,7 +90,7 @@ GStreamer streaming media framework.
   --enable-gtk-doc \
   --enable-debug \
   --disable-tests --disable-examples
-make %{?_smp_mflags}
+make %{?_smp_mflags} V=1
 
 
 %install
@@ -193,6 +193,9 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %changelog
+* Mon Oct  1 2012 Peter Robinson <pbrobinson@fedoraproject.org> - 1.0.0-2
+- Enable verbose build
+
 * Mon Sep 24 2012 Brian Pepple <bpepple@fedoraproject.org> - 1.0.0-1
 - Update to 1.0.0.
 
