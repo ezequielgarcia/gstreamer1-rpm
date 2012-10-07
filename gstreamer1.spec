@@ -97,10 +97,10 @@ make %{?_smp_mflags} V=1
 rm -rf $RPM_BUILD_ROOT
 make install DESTDIR=$RPM_BUILD_ROOT
 # Remove rpath.
-chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libgstbase-1.0.so.0.0.0
-chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libgstcheck-1.0.so.0.0.0
-chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libgstcontroller-1.0.so.0.0.0 
-chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libgstnet-1.0.so.0.0.0
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libgstbase-1.0.so.*
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libgstcheck-1.0.so.*
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libgstcontroller-1.0.so.* 
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libgstnet-1.0.so.*
 chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstcoreelements.so
 chrpath --delete $RPM_BUILD_ROOT%{_libexecdir}/gstreamer-%{majorminor}/gst-plugin-scanner
 chrpath --delete $RPM_BUILD_ROOT%{_bindir}/gst-inspect-1.0
