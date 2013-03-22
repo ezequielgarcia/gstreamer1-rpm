@@ -43,7 +43,6 @@ BuildRequires:  xfig
 BuildRequires:  netpbm-progs
 BuildRequires:  tetex-dvips
 BuildRequires:  ghostscript
-BuildRequires:  PyXML
 
 %description
 GStreamer is a streaming media framework, based on graphs of filters which
@@ -195,6 +194,7 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 %changelog
 * Fri Mar 22 2013 Brian Pepple <bpepple@fedoraproject.org> - 1.0.6-1
 - Update to 1.0.6.
+- Remove BR on PyXML.
 
 * Thu Feb 14 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.0.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
