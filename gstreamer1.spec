@@ -39,10 +39,12 @@ BuildRequires:  docbook-style-dsssl
 BuildRequires:  docbook-style-xsl
 BuildRequires:  docbook-utils
 BuildRequires:  transfig
-BuildRequires:  xfig
 BuildRequires:  netpbm-progs
 BuildRequires:  tetex-dvips
 BuildRequires:  ghostscript
+%if !0%{?rhel}
+BuildRequires:  xfig
+%endif
 
 %description
 GStreamer is a streaming media framework, based on graphs of filters which
@@ -192,6 +194,9 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %changelog
+* Wed Mar 27 2013 Adam Jackson <ajax@redhat.com>
+- Tweak BRs for RHEL
+
 * Fri Mar 22 2013 Brian Pepple <bpepple@fedoraproject.org> - 1.0.6-1
 - Update to 1.0.6.
 - Remove BR on PyXML.
