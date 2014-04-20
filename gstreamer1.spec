@@ -5,7 +5,7 @@
 %global         _gobject_introspection  1.31.1
 
 Name:           gstreamer1
-Version:        1.2.3
+Version:        1.2.4
 Release:        1%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
@@ -194,6 +194,9 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %changelog
+* Sun Apr 20 2014 Brian Pepple <bpepple@fedoraproject.org> - 1.2.4-1
+- Update to 1.2.4.
+
 * Mon Feb 10 2014 Brian Pepple <bpepple@fedoraproject.org> - 1.2.3-1
 - Update to 1.2.3.
 
