@@ -5,8 +5,8 @@
 %global         _gobject_introspection  1.31.1
 
 Name:           gstreamer1
-Version:        1.2.4
-Release:        2%{?dist}
+Version:        1.3.90
+Release:        1%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 License:        LGPLv2+
@@ -194,6 +194,9 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %changelog
+* Mon Jun 30 2014 Richard Hughes <rhughes@redhat.com> - 1.3.90-1
+- Update to 1.3.90
+
 * Sat Jun 07 2014 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.2.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_21_Mass_Rebuild
 
