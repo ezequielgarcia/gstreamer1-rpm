@@ -6,7 +6,7 @@
 
 Name:           gstreamer1
 Version:        1.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 License:        LGPLv2+
@@ -194,6 +194,9 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %changelog
+* Tue Jul 22 2014 Kalev Lember <kalevlember@gmail.com> - 1.4.0-2
+- Rebuilt for gobject-introspection 1.41.4
+
 * Tue Jul 22 2014 Wim Taymans <wtaymans@redhat.com> - 1.4.0-1
 - Update to 1.4.0
 
