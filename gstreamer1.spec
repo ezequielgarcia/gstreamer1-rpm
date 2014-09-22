@@ -5,7 +5,7 @@
 %global         _gobject_introspection  1.31.1
 
 Name:           gstreamer1
-Version:        1.4.1
+Version:        1.4.2
 Release:        1%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
@@ -194,6 +194,9 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %changelog
+* Mon Sep 22 2014 Wim Taymans <wtaymans@redhat.com> - 1.4.2-1
+- Update to 1.4.2
+
 * Fri Aug 29 2014 Wim Taymans <wtaymans@redhat.com> - 1.4.1-1
 - Update to 1.4.1
 
