@@ -6,7 +6,7 @@
 
 Name:           gstreamer1
 Version:        1.4.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 License:        LGPLv2+
@@ -194,6 +194,10 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %changelog
+* Sat Feb 21 2015 Till Maas <opensource@till.name> - 1.4.5-2
+- Rebuilt for Fedora 23 Change
+  https://fedoraproject.org/wiki/Changes/Harden_all_packages_with_position-independent_code
+
 * Wed Jan 28 2015 Bastien Nocera <bnocera@redhat.com> 1.4.5-1
 - Update to 1.4.5
 
