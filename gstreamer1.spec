@@ -1,17 +1,27 @@
 %global         majorminor      1.0
 
+#%global gitrel     140
+#%global gitcommit  a70055b58568f7304ba46bd8742232337013487b
+#%global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
+
 %global         _glib2                  2.32.0
 %global         _libxml2                2.4.0
 %global         _gobject_introspection  1.31.1
 
 Name:           gstreamer1
-Version:        1.4.5
-Release:        2%{?dist}
+Version:        1.5.1
+Release:        3%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 License:        LGPLv2+
 URL:            http://gstreamer.freedesktop.org/
+%if 0%{?gitrel}
+# git clone git://anongit.freedesktop.org/gstreamer/gstreamer
+# cd gstreamer; git reset --hard %{gitcommit}; ./autogen.sh; make; make distcheck
+Source0:        gstreamer-%{version}.tar.xz
+%else
 Source0:        http://gstreamer.freedesktop.org/src/gstreamer/gstreamer-%{version}.tar.xz
+%endif
 ## For GStreamer RPM provides
 Patch0:         gstreamer-inspect-rpm-format.patch
 Source1:        gstreamer1.prov
@@ -153,6 +163,11 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 %doc %{_mandir}/man1/gst-launch-%{majorminor}.*
 %doc %{_mandir}/man1/gst-typefind-%{majorminor}.*
 
+%{_datadir}/bash-completion/completions/gst-inspect-1.0
+%{_datadir}/bash-completion/completions/gst-launch-1.0
+%{_datadir}/bash-completion/helpers/gst
+%{_datadir}/bash-completion/helpers/gst-completion-helper-1.0
+
 %files devel
 %dir %{_includedir}/gstreamer-%{majorminor}
 %dir %{_includedir}/gstreamer-%{majorminor}/gst
@@ -165,6 +180,8 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 %{_includedir}/gstreamer-%{majorminor}/gst/check/*.h
 %{_includedir}/gstreamer-%{majorminor}/gst/controller/*.h
 %{_includedir}/gstreamer-%{majorminor}/gst/net/*.h
+
+%{_libdir}/gstreamer-%{majorminor}/include/gst/*.h
 
 %{_libdir}/libgstreamer-%{majorminor}.so
 %{_libdir}/libgstbase-%{majorminor}.so
@@ -186,7 +203,6 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 %{_libdir}/pkgconfig/gstreamer-check-%{majorminor}.pc
 %{_libdir}/pkgconfig/gstreamer-net-%{majorminor}.pc
 
-
 %files devel-docs
 %doc %{_datadir}/gtk-doc/html/gstreamer-%{majorminor}
 %doc %{_datadir}/gtk-doc/html/gstreamer-libs-%{majorminor}
@@ -194,6 +210,11 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %changelog
+* Tue May 5 2015 Wim Taymans <wtaymans@redhat.com> - 1.5.1-1
+- Update to 1.5.1
+- add new bash-completion scripts
+- gstconfig.h got moved
+
 * Sat Feb 21 2015 Till Maas <opensource@till.name> - 1.4.5-2
 - Rebuilt for Fedora 23 Change
   https://fedoraproject.org/wiki/Changes/Harden_all_packages_with_position-independent_code
