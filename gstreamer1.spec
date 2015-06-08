@@ -1,8 +1,8 @@
 %global         majorminor      1.0
 
-#%global gitrel     140
-#%global gitcommit  a70055b58568f7304ba46bd8742232337013487b
-#%global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
+#global gitrel     140
+#global gitcommit  a70055b58568f7304ba46bd8742232337013487b
+#global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
 
 %global         _glib2                  2.32.0
 %global         _libxml2                2.4.0
@@ -10,7 +10,7 @@
 
 Name:           gstreamer1
 Version:        1.5.1
-Release:        3%{?gitcommit:.git%{shortcommit}}%{?dist}
+Release:        1%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 License:        LGPLv2+
