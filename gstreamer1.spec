@@ -10,7 +10,7 @@
 
 Name:           gstreamer1
 Version:        1.6.0
-Release:        1%{?gitcommit:.git%{shortcommit}}%{?dist}
+Release:        2%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 License:        LGPLv2+
@@ -114,9 +114,11 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libgstcontroller-1.0.so.*
 chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libgstnet-1.0.so.*
 chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstcoreelements.so
 chrpath --delete $RPM_BUILD_ROOT%{_libexecdir}/gstreamer-%{majorminor}/gst-plugin-scanner
+chrpath --delete $RPM_BUILD_ROOT%{_libexecdir}/gstreamer-%{majorminor}/gst-ptp-helper
 chrpath --delete $RPM_BUILD_ROOT%{_bindir}/gst-inspect-1.0
 chrpath --delete $RPM_BUILD_ROOT%{_bindir}/gst-launch-1.0
 chrpath --delete $RPM_BUILD_ROOT%{_bindir}/gst-typefind-1.0
+chrpath --delete $RPM_BUILD_ROOT%{_datadir}/bash-completion/helpers/gst-completion-helper-%{majorminor}
 
 %find_lang gstreamer-%{majorminor}
 # Clean out files that should not be part of the rpm.
@@ -211,6 +213,9 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %changelog
+* Sat Sep 26 2015 Kalev Lember <klember@redhat.com> - 1.6.0-2
+- Remove lib64 rpaths from newly added binaries
+
 * Sat Sep 26 2015 Kalev Lember <klember@redhat.com> - 1.6.0-1
 - Update to 1.6.0
 - Use license macro for COPYING
