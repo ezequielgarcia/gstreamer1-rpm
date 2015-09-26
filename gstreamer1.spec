@@ -134,7 +134,8 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %files -f gstreamer-%{majorminor}.lang
-%doc AUTHORS COPYING NEWS README RELEASE
+%license COPYING
+%doc AUTHORS NEWS README RELEASE
 %{_libdir}/libgstreamer-%{majorminor}.so.*
 %{_libdir}/libgstbase-%{majorminor}.so.*
 %{_libdir}/libgstcheck-%{majorminor}.so.*
@@ -212,6 +213,7 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 %changelog
 * Sat Sep 26 2015 Kalev Lember <klember@redhat.com> - 1.6.0-1
 - Update to 1.6.0
+- Use license macro for COPYING
 
 * Mon Sep 21 2015 Wim Taymans <wtaymans@redhat.com> - 1.5.91-1
 - Update to 1.5.91
