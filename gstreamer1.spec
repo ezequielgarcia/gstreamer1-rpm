@@ -9,7 +9,7 @@
 %global         _gobject_introspection  1.31.1
 
 Name:           gstreamer1
-Version:        1.6.2
+Version:        1.7.1
 Release:        1%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
@@ -117,6 +117,7 @@ chrpath --delete $RPM_BUILD_ROOT%{_libexecdir}/gstreamer-%{majorminor}/gst-plugi
 chrpath --delete $RPM_BUILD_ROOT%{_libexecdir}/gstreamer-%{majorminor}/gst-ptp-helper
 chrpath --delete $RPM_BUILD_ROOT%{_bindir}/gst-inspect-1.0
 chrpath --delete $RPM_BUILD_ROOT%{_bindir}/gst-launch-1.0
+chrpath --delete $RPM_BUILD_ROOT%{_bindir}/gst-stats-1.0
 chrpath --delete $RPM_BUILD_ROOT%{_bindir}/gst-typefind-1.0
 chrpath --delete $RPM_BUILD_ROOT%{_datadir}/bash-completion/helpers/gst-completion-helper-%{majorminor}
 
@@ -148,6 +149,7 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 %dir %{_libdir}/gstreamer-%{majorminor}
 %{_libdir}/gstreamer-%{majorminor}/libgstcoreelements.so
+%{_libdir}/gstreamer-%{majorminor}/libgstcoretracers.so
 
 %{_libdir}/girepository-1.0/Gst-%{majorminor}.typelib
 %{_libdir}/girepository-1.0/GstBase-%{majorminor}.typelib
@@ -157,6 +159,7 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 %{_bindir}/gst-inspect-%{majorminor}
 %{_bindir}/gst-launch-%{majorminor}
+%{_bindir}/gst-stats-%{majorminor}
 %{_bindir}/gst-typefind-%{majorminor}
 
 %{_rpmconfigdir}/gstreamer1.prov
@@ -213,6 +216,12 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %changelog
+* Mon Jan 4 2016 Wim Taymans <wtaymans@redhat.com> - 1.7.1-1
+- Update to 1.7.1
+- update rpm inspect patch
+- add gst-stats
+- add core traces
+
 * Tue Dec 15 2015 Wim Taymans <wtaymans@redhat.com> - 1.6.2-1
 - Update to 1.6.2
 
