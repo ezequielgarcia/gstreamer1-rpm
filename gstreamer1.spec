@@ -9,7 +9,7 @@
 %global         _gobject_introspection  1.31.1
 
 Name:           gstreamer1
-Version:        1.8.1
+Version:        1.8.2
 Release:        1%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
@@ -216,6 +216,9 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %changelog
+* Thu Jun 09 2016 Wim Taymans <wtaymans@redhat.com> - 1.8.2-1
+- Update to 1.8.2
+
 * Thu Apr 21 2016 Wim Taymans <wtaymans@redhat.com> - 1.8.1-1
 - Update to 1.8.1
 
