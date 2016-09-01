@@ -187,8 +187,6 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 %{_includedir}/gstreamer-%{majorminor}/gst/controller/*.h
 %{_includedir}/gstreamer-%{majorminor}/gst/net/*.h
 
-%{_libdir}/gstreamer-%{majorminor}/include/gst/*.h
-
 %{_libdir}/libgstreamer-%{majorminor}.so
 %{_libdir}/libgstbase-%{majorminor}.so
 %{_libdir}/libgstcheck-%{majorminor}.so
@@ -218,6 +216,7 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 %changelog
 * Thu Sep 01 2016 Wim Taymans <wtaymans@redhat.com> - 1.9.2-1
 - Update to 1.9.2
+- gstconfig.h was moved to normal include dir
 
 * Thu Jul 07 2016 Wim Taymans <wtaymans@redhat.com> - 1.9.1-1
 - Update to 1.9.1
