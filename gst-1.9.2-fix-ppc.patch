@@ -1,0 +1,25 @@
+From 0abb6e1a42332335c139a44b86054c0d8df2541f Mon Sep 17 00:00:00 2001
+From: Wim Taymans <wtaymans@redhat.com>
+Date: Mon, 5 Sep 2016 09:50:17 +0200
+Subject: config: newer gcc doesn't know __ppc__ and __ppc64__ anymore
+
+__ppc__ and __ppc64__ are non-standard defines, we should use
+__powerpc__ and __powerpc64__ instead because newer gcc doesn't know
+them anymore.
+
+diff --git a/gst/gstconfig.h.in b/gst/gstconfig.h.in
+index 07c9114..25b50f2 100644
+--- a/gst/gstconfig.h.in
++++ b/gst/gstconfig.h.in
+@@ -106,7 +106,7 @@
+  */
+ #if defined(__alpha__) || defined(__arm__) || defined(__aarch64__) || defined(__bfin) || defined(__hppa__) || defined(__mips__) || defined(__sh__) || defined(__sparc__) || defined(__sparc) || defined(__ia64__) || defined(_M_ALPHA) || defined(_M_ARM) || defined(_M_IA64)
+ #  define GST_HAVE_UNALIGNED_ACCESS 0
+-#elif defined(__i386__) || defined(__i386) || defined(__amd64__) || defined(__amd64) || defined(__x86_64__) || defined(__ppc__) || defined(__ppc64__) || defined(__m68k__) || defined(_M_IX86) || defined(_M_AMD64) || defined(_M_X64) || defined(__s390__) || defined(__zarch__)
++#elif defined(__i386__) || defined(__i386) || defined(__amd64__) || defined(__amd64) || defined(__x86_64__) || defined(__ppc__) || defined(__ppc64__) || defined(__powerpc__) || defined(__powerpc64__) || defined(__m68k__) || defined(_M_IX86) || defined(_M_AMD64) || defined(_M_X64) || defined(__s390__) || defined(__zarch__)
+ #  define GST_HAVE_UNALIGNED_ACCESS 1
+ #else
+ #  error "Could not detect architecture; don't know whether it supports unaligned access! Please file a bug."
+-- 
+cgit v0.10.2
+

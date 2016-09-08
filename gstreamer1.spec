@@ -10,7 +10,7 @@
 
 Name:           gstreamer1
 Version:        1.9.2
-Release:        2%{?gitcommit:.git%{shortcommit}}%{?dist}
+Release:        3%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 License:        LGPLv2+
@@ -25,6 +25,7 @@ Source0:        http://gstreamer.freedesktop.org/src/gstreamer/gstreamer-%{versi
 ## For GStreamer RPM provides
 Patch0:         gstreamer-inspect-rpm-format.patch
 Patch1:         0001-config-support-System-z.patch
+Patch2:         gst-1.9.2-fix-ppc.patch
 Source1:        gstreamer1.prov
 Source2:        gstreamer1.attr
 
@@ -94,6 +95,7 @@ GStreamer streaming media framework.
 %setup -q -n gstreamer-%{version}
 %patch0 -p1 -b .rpm-provides
 %patch1 -p1 -b .patch1
+%patch2 -p1 -b .ppc
 
 
 %build
@@ -216,6 +218,9 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %changelog
+* Thu Sep  8 2016 Peter Robinson <pbrobinson@fedoraproject.org> 1.9.2-3
+- fix build on Power64
+
 * Thu Sep 01 2016 Wim Taymans <wtaymans@redhat.com> - 1.9.2-2
 - fix build on s390x
 
