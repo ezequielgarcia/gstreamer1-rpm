@@ -9,8 +9,8 @@
 %global         _gobject_introspection  1.31.1
 
 Name:           gstreamer1
-Version:        1.9.2
-Release:        3%{?gitcommit:.git%{shortcommit}}%{?dist}
+Version:        1.9.90
+Release:        1%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 License:        LGPLv2+
@@ -218,6 +218,9 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %changelog
+* Fri Sep 30 2016 Wim Taymans <wtaymans@redhat.com> - 1.9.90-1
+- Update to 1.9.90
+
 * Thu Sep  8 2016 Peter Robinson <pbrobinson@fedoraproject.org> 1.9.2-3
 - fix build on Power64
 
