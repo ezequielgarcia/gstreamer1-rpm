@@ -24,8 +24,6 @@ Source0:        http://gstreamer.freedesktop.org/src/gstreamer/gstreamer-%{versi
 %endif
 ## For GStreamer RPM provides
 Patch0:         gstreamer-inspect-rpm-format.patch
-Patch1:         0001-config-support-System-z.patch
-Patch2:         gst-1.9.2-fix-ppc.patch
 Source1:        gstreamer1.prov
 Source2:        gstreamer1.attr
 
@@ -94,8 +92,6 @@ GStreamer streaming media framework.
 %prep
 %setup -q -n gstreamer-%{version}
 %patch0 -p1 -b .rpm-provides
-%patch1 -p1 -b .patch1
-%patch2 -p1 -b .ppc
 
 
 %build
@@ -220,6 +216,7 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 %changelog
 * Fri Sep 30 2016 Wim Taymans <wtaymans@redhat.com> - 1.9.90-1
 - Update to 1.9.90
+- remove obsolete patches
 
 * Thu Sep  8 2016 Peter Robinson <pbrobinson@fedoraproject.org> 1.9.2-3
 - fix build on Power64
