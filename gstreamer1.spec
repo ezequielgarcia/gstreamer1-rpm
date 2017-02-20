@@ -25,6 +25,7 @@ Source0:        http://gstreamer.freedesktop.org/src/gstreamer/gstreamer-%{versi
 ## For GStreamer RPM provides
 Patch0:         gstreamer-inspect-rpm-format.patch
 Patch1:         0001-deviceproviderfactory-fix-empty-class-check.patch
+Patch2:         0001-info-put-around-macro-arguments.patch
 Source1:        gstreamer1.prov
 Source2:        gstreamer1.attr
 
@@ -94,6 +95,7 @@ GStreamer streaming media framework.
 %setup -q -n gstreamer-%{version}
 %patch0 -p1 -b .rpm-provides
 %patch1 -p1 -b .0001
+%patch2 -p1 -b .0002
 
 
 %build
