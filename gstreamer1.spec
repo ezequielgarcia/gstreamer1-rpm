@@ -9,8 +9,8 @@
 %global         _gobject_introspection  1.31.1
 
 Name:           gstreamer1
-Version:        1.11.1
-Release:        2%{?gitcommit:.git%{shortcommit}}%{?dist}
+Version:        1.11.2
+Release:        1%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 License:        LGPLv2+
@@ -24,8 +24,6 @@ Source0:        http://gstreamer.freedesktop.org/src/gstreamer/gstreamer-%{versi
 %endif
 ## For GStreamer RPM provides
 Patch0:         gstreamer-inspect-rpm-format.patch
-Patch1:         0001-deviceproviderfactory-fix-empty-class-check.patch
-Patch2:         0001-info-put-around-macro-arguments.patch
 Source1:        gstreamer1.prov
 Source2:        gstreamer1.attr
 
@@ -94,9 +92,6 @@ GStreamer streaming media framework.
 %prep
 %setup -q -n gstreamer-%{version}
 %patch0 -p1 -b .rpm-provides
-%patch1 -p1 -b .0001
-%patch2 -p1 -b .0002
-
 
 %build
 %configure \
@@ -218,6 +213,9 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %changelog
+* Fri Feb 24 2017 Wim Taymans <wtaymans@redhat.com> - 1.11.2-1
+- Update to 1.11.2
+
 * Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
 - fix build
