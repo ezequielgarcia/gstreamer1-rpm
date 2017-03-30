@@ -10,7 +10,7 @@
 
 Name:           gstreamer1
 Version:        1.11.2
-Release:        1%{?gitcommit:.git%{shortcommit}}%{?dist}
+Release:        2%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 License:        LGPLv2+
@@ -213,6 +213,9 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %changelog
+* Thu Mar 30 2017 Wim Taymans <wtaymans@redhat.com> - 1.11.2-2
+- rebuild for https://github.com/UnitedRPMs/packages/issues/106#issuecomment-290404434
+
 * Fri Feb 24 2017 Wim Taymans <wtaymans@redhat.com> - 1.11.2-1
 - Update to 1.11.2
 
