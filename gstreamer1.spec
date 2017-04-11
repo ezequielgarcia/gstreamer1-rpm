@@ -112,13 +112,13 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libgstcheck-1.0.so.*
 chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libgstcontroller-1.0.so.* 
 chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libgstnet-1.0.so.*
 chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstcoreelements.so
+chrpath --delete $RPM_BUILD_ROOT%{_libexecdir}/gstreamer-%{majorminor}/gst-completion-helper
 chrpath --delete $RPM_BUILD_ROOT%{_libexecdir}/gstreamer-%{majorminor}/gst-plugin-scanner
 chrpath --delete $RPM_BUILD_ROOT%{_libexecdir}/gstreamer-%{majorminor}/gst-ptp-helper
 chrpath --delete $RPM_BUILD_ROOT%{_bindir}/gst-inspect-1.0
 chrpath --delete $RPM_BUILD_ROOT%{_bindir}/gst-launch-1.0
 chrpath --delete $RPM_BUILD_ROOT%{_bindir}/gst-stats-1.0
 chrpath --delete $RPM_BUILD_ROOT%{_bindir}/gst-typefind-1.0
-chrpath --delete $RPM_BUILD_ROOT%{_datadir}/bash-completion/helpers/gst-completion-helper-%{majorminor}
 
 %find_lang gstreamer-%{majorminor}
 # Clean out files that should not be part of the rpm.
@@ -171,7 +171,6 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 %{_datadir}/bash-completion/completions/gst-inspect-1.0
 %{_datadir}/bash-completion/completions/gst-launch-1.0
 %{_datadir}/bash-completion/helpers/gst
-%{_datadir}/bash-completion/helpers/gst-completion-helper-1.0
 
 %files devel
 %dir %{_includedir}/gstreamer-%{majorminor}
