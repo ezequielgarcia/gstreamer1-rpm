@@ -166,6 +166,7 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 %doc %{_mandir}/man1/gst-inspect-%{majorminor}.*
 %doc %{_mandir}/man1/gst-launch-%{majorminor}.*
+%doc %{_mandir}/man1/gst-stats-%{majorminor}.*
 %doc %{_mandir}/man1/gst-typefind-%{majorminor}.*
 
 %{_datadir}/bash-completion/completions/gst-inspect-1.0
@@ -214,6 +215,7 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 %changelog
 * Tue Jun 20 2017 Wim Taymans <wtaymans@redhat.com> - 1.12.1-1
 - Update to 1.12.1
+- Add gst-stats manpage
 
 * Wed May 10 2017 Wim Taymans <wtaymans@redhat.com> - 1.12.0-1
 - Update to 1.12.0
