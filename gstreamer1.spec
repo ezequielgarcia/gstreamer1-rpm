@@ -10,7 +10,7 @@
 
 Name:           gstreamer1
 Version:        1.12.2
-Release:        2%{?gitcommit:.git%{shortcommit}}%{?dist}
+Release:        3%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 License:        LGPLv2+
@@ -213,6 +213,9 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %changelog
+* Wed Aug 02 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Binutils_Mass_Rebuild
+
 * Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
 
