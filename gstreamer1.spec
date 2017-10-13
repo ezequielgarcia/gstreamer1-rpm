@@ -10,7 +10,7 @@
 
 Name:           gstreamer1
 Version:        1.12.3
-Release:        1%{?gitcommit:.git%{shortcommit}}%{?dist}
+Release:        2%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 License:        LGPLv2+
@@ -52,7 +52,7 @@ BuildRequires:  transfig
 BuildRequires:  netpbm-progs
 BuildRequires:  tetex-dvips
 BuildRequires:  ghostscript
-%if !0%{?rhel}
+%if 0%{?fedora} || 0%{?rhel} > 7
 BuildRequires:  xfig
 %endif
 
@@ -213,6 +213,9 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %changelog
+* Fri Oct 13 2017 Troy Dawson <tdawson@redhat.com> - 1.12.3-2
+- Cleanup spec file conditionals
+
 * Tue Sep 19 2017 Wim Taymans <wtaymans@redhat.com> - 1.12.3-1
 - Update to 1.12.3
 
