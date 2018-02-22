@@ -24,6 +24,7 @@ Source0:        http://gstreamer.freedesktop.org/src/gstreamer/gstreamer-%{versi
 %endif
 ## For GStreamer RPM provides
 Patch0:         gstreamer-inspect-rpm-format.patch
+Patch1:         0001-avoid-compilation-errors-with-newer-glib.patch
 Source1:        gstreamer1.prov
 Source2:        gstreamer1.attr
 
@@ -92,6 +93,7 @@ GStreamer streaming media framework.
 %prep
 %setup -q -n gstreamer-%{version}
 %patch0 -p1 -b .rpm-provides
+%patch1 -p1 -b .0001
 
 %build
 %configure \
@@ -216,6 +218,7 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 * Thu Feb 22 2018 Wim Taymans <wtaymans@redhat.com> - 1.13.1-1
 - Update to 1.13.1
 - Update rpm patch
+- Fix compiler error
 
 * Wed Feb 07 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
