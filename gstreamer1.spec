@@ -10,7 +10,7 @@
 
 Name:           gstreamer1
 Version:        1.13.1
-Release:        1%{?gitcommit:.git%{shortcommit}}%{?dist}
+Release:        2%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 License:        LGPLv2+
@@ -72,7 +72,8 @@ Requires:       %{name} = %{version}-%{release}
 Requires:       glib2-devel >= %{_glib2}
 Requires:       libxml2-devel >= %{_libxml2}
 Requires:       check-devel
-
+# file /usr/include/gstreamer-1.0/gst/base/gstaggregator.h conflicts between attempted installs of gstreamer1-plugins-bad-free-devel-1.12.4-3.fc28.x86_64 and gstreamer1-devel-1.13.1-1.fc29.x86_64
+Conflicts:      gstreamer1-plugins-bad-free-devel < 1.13
 
 %description devel
 The %{name}-devel package contains libraries and header files for
@@ -215,6 +216,9 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %changelog
+* Fri Feb 23 2018 Rex Dieter <rdieter@fedoraproject.org> - 1.13.1-2
+- -devel: Conflicts: gstreamer1-plugins-bad-free-devel < 1.13
+
 * Thu Feb 22 2018 Wim Taymans <wtaymans@redhat.com> - 1.13.1-1
 - Update to 1.13.1
 - Update rpm patch
