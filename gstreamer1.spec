@@ -39,6 +39,8 @@ BuildRequires:  gtk-doc >= 1.3
 BuildRequires:  gettext
 BuildRequires:  pkgconfig
 
+# ./autogen.sh deps
+BuildRequires:  automake gettext-devel libtool
 BuildRequires:  chrpath
 
 ### documentation requirements
@@ -96,6 +98,9 @@ GStreamer streaming media framework.
 %patch1 -p1 -b .0001
 
 %build
+NOCONFIGURE=1 \
+./autogen.sh
+
 %configure \
   --with-package-name='Fedora GStreamer package' \
   --with-package-origin='http://download.fedoraproject.org' \
@@ -104,10 +109,6 @@ GStreamer streaming media framework.
   --disable-fatal-warnings \
   --disable-silent-rules \
   --disable-tests --disable-examples
-
-# die rpath
-sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
-sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 
 %make_build V=1
 
