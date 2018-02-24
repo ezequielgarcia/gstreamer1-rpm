@@ -10,7 +10,7 @@
 
 Name:           gstreamer1
 Version:        1.13.1
-Release:        2%{?gitcommit:.git%{shortcommit}}%{?dist}
+Release:        3%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 License:        LGPLv2+
@@ -68,9 +68,9 @@ plugins.
 
 %package devel
 Summary:        Libraries/include files for GStreamer streaming media framework
-Requires:       %{name} = %{version}-%{release}
-Requires:       glib2-devel >= %{_glib2}
-Requires:       libxml2-devel >= %{_libxml2}
+Requires:       %{name}%{?isa} = %{version}-%{release}
+Requires:       glib2-devel%{?_isa} >= %{_glib2}
+Requires:       libxml2-devel%{?_isa} >= %{_libxml2}
 Requires:       check-devel
 # file /usr/include/gstreamer-1.0/gst/base/gstaggregator.h conflicts between attempted installs of gstreamer1-plugins-bad-free-devel-1.12.4-3.fc28.x86_64 and gstreamer1-devel-1.13.1-1.fc29.x86_64
 Conflicts:      gstreamer1-plugins-bad-free-devel < 1.13
@@ -84,7 +84,6 @@ developing applications that use %{name}.
 Summary:         Developer documentation for GStreamer streaming media framework
 Requires:        %{name} = %{version}-%{release}
 BuildArch:       noarch
-
 
 %description devel-docs
 This %{name}-devel-docs contains developer documentation for the
@@ -102,41 +101,31 @@ GStreamer streaming media framework.
   --with-package-origin='http://download.fedoraproject.org' \
   --enable-gtk-doc \
   --enable-debug \
+  --disable-fatal-warnings \
+  --disable-silent-rules \
   --disable-tests --disable-examples
-make %{?_smp_mflags} V=1
+
+# die rpath
+sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
+sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
+
+%make_build V=1
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make install DESTDIR=$RPM_BUILD_ROOT
-# Remove rpath.
-chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libgstbase-1.0.so.*
-chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libgstcheck-1.0.so.*
-chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libgstcontroller-1.0.so.* 
-chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libgstnet-1.0.so.*
-chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstcoreelements.so
-chrpath --delete $RPM_BUILD_ROOT%{_libexecdir}/gstreamer-%{majorminor}/gst-completion-helper
-chrpath --delete $RPM_BUILD_ROOT%{_libexecdir}/gstreamer-%{majorminor}/gst-plugin-scanner
-chrpath --delete $RPM_BUILD_ROOT%{_libexecdir}/gstreamer-%{majorminor}/gst-ptp-helper
-chrpath --delete $RPM_BUILD_ROOT%{_bindir}/gst-inspect-1.0
-chrpath --delete $RPM_BUILD_ROOT%{_bindir}/gst-launch-1.0
-chrpath --delete $RPM_BUILD_ROOT%{_bindir}/gst-stats-1.0
-chrpath --delete $RPM_BUILD_ROOT%{_bindir}/gst-typefind-1.0
+%make_install
 
 %find_lang gstreamer-%{majorminor}
 # Clean out files that should not be part of the rpm.
-find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
-find $RPM_BUILD_ROOT -name '*.a' -exec rm -f {} ';'
+find $RPM_BUILD_ROOT -name '*.la' -exec rm -fv {} ';'
+find $RPM_BUILD_ROOT -name '*.a' -exec rm -fv {} ';'
 # Add the provides script
 install -m0755 -D %{SOURCE1} $RPM_BUILD_ROOT%{_rpmconfigdir}/gstreamer1.prov
 # Add the gstreamer plugin file attribute entry (rpm >= 4.9.0)
 install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer1.attr
 
-%post -p /sbin/ldconfig
 
-
-%postun -p /sbin/ldconfig
-
+%ldconfig_scriptlets
 
 %files -f gstreamer-%{majorminor}.lang
 %license COPYING
@@ -216,6 +205,12 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %changelog
+* Fri Feb 23 2018 Rex Dieter <rdieter@fedoraproject.org> - 1.13.1-3
+- %%build: --disable-fatal-warnings --disable-silent-rules
+- fix rpath harder
+- use %%ldconfig_scriptlets, %%make_build, %%make_install
+- -devel: tighten deps with %%{_isa}
+
 * Fri Feb 23 2018 Rex Dieter <rdieter@fedoraproject.org> - 1.13.1-2
 - -devel: Conflicts: gstreamer1-plugins-bad-free-devel < 1.13
 
