@@ -46,14 +46,14 @@ BuildRequires:  chrpath
 ### documentation requirements
 BuildRequires:  python2
 BuildRequires:  openjade
-BuildRequires:  jadetex
+BuildRequires:  texlive-jadetex
 BuildRequires:  libxslt
 BuildRequires:  docbook-style-dsssl
 BuildRequires:  docbook-style-xsl
 BuildRequires:  docbook-utils
 BuildRequires:  transfig
 BuildRequires:  netpbm-progs
-BuildRequires:  tetex-dvips
+BuildRequires:  texlive-dvips
 BuildRequires:  ghostscript
 %if 0%{?fedora} || 0%{?rhel} > 7
 BuildRequires:  xfig
@@ -208,6 +208,7 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 %changelog
 * Wed Mar 14 2018 Wim Taymans <wtaymans@redhat.com> - 1.13.91-1
 - Update to 1.13.91
+- fix doc dependencies
 
 * Mon Mar 05 2018 Wim Taymans <wtaymans@redhat.com> - 1.13.90-1
 - Update to 1.13.90
