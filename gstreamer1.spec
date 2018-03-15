@@ -1,4 +1,4 @@
-
+%global         majorminor      1.0
 
 #global gitrel     140
 #global gitcommit  a70055b58568f7304ba46bd8742232337013487b
