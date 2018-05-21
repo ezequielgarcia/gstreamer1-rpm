@@ -24,7 +24,6 @@ Source0:        http://gstreamer.freedesktop.org/src/gstreamer/gstreamer-%{versi
 %endif
 ## For GStreamer RPM provides
 Patch0:         gstreamer-inspect-rpm-format.patch
-Patch1:         0001-avoid-compilation-errors-with-newer-glib.patch
 Source1:        gstreamer1.prov
 Source2:        gstreamer1.attr
 
@@ -95,7 +94,6 @@ GStreamer streaming media framework.
 %prep
 %setup -q -n gstreamer-%{version}
 %patch0 -p1 -b .rpm-provides
-%patch1 -p1 -b .0001
 
 %build
 NOCONFIGURE=1 \
@@ -208,6 +206,7 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 %changelog
 * Mon May 21 2018 Wim Taymans <wtaymans@redhat.com> - 1.14.1-1
 - Update to 1.14.1
+- Remove obsolete patch
 
 * Tue Mar 20 2018 Wim Taymans <wtaymans@redhat.com> - 1.14.0-1
 - Update to 1.14.0
