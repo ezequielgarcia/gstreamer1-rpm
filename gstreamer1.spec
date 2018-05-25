@@ -10,7 +10,7 @@
 
 Name:           gstreamer1
 Version:        1.14.1
-Release:        1%{?gitcommit:.git%{shortcommit}}%{?dist}
+Release:        2%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 License:        LGPLv2+
@@ -204,6 +204,10 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %changelog
+* Fri May 25 2018 Wim Taymans <wtaymans@redhat.com> - 1.14.1-2
+- Update gstreamer1.prov file: Only scan in plugin directories
+  and relax file name and type. (#1581325)
+
 * Mon May 21 2018 Wim Taymans <wtaymans@redhat.com> - 1.14.1-1
 - Update to 1.14.1
 - Remove obsolete patch
