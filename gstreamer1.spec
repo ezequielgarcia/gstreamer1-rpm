@@ -10,7 +10,7 @@
 
 Name:           gstreamer1
 Version:        1.14.1
-Release:        3%{?gitcommit:.git%{shortcommit}}%{?dist}
+Release:        4%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 License:        LGPLv2+
@@ -26,9 +26,6 @@ Source0:        http://gstreamer.freedesktop.org/src/gstreamer/gstreamer-%{versi
 Patch0:         gstreamer-inspect-rpm-format.patch
 Source1:        gstreamer1.prov
 Source2:        gstreamer1.attr
-
-# https://bugzilla.gnome.org/show_bug.cgi?id=767255
-Patch1: 0001-WIP-buffer-caps-event-message-attempt-to-silence-com.patch
 
 BuildRequires:  glib2-devel >= %{_glib2}
 BuildRequires:  libxml2-devel >= %{_libxml2}
@@ -97,7 +94,6 @@ GStreamer streaming media framework.
 %prep
 %setup -q -n gstreamer-%{version}
 %patch0 -p1 -b .rpm-provides
-%patch1 -p1 -b .cast-align
 
 %build
 NOCONFIGURE=1 \
@@ -208,7 +204,10 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %changelog
-* Wed Jun 06 2018 Bastien Nocera <bnocera@redhat.com> - 1.14.1-3}
+* Wed Jun 06 2018 Bastien Nocera <bnocera@redhat.com> - 1.14.1-4
+- Remove -Wcast-align fix patch, it's not complete
+
+* Wed Jun 06 2018 Bastien Nocera <bnocera@redhat.com> - 1.14.1-3
 - Add test patch to shut -Wcast-align warnings
 
 * Fri May 25 2018 Wim Taymans <wtaymans@redhat.com> - 1.14.1-2
