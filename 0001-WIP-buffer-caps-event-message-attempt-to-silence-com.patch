@@ -1,0 +1,241 @@
+From b5790114ae5cda0b9e7596179d134bff285a47b7 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?Tim-Philipp=20M=C3=BCller?= <tim@centricular.com>
+Date: Mon, 25 Jul 2016 23:48:50 +0100
+Subject: [PATCH] WIP: buffer, caps, event, message: attempt to silence
+ compiler warnings
+
+.. with -Wcast-align on aarch64.
+
+https://bugzilla.gnome.org/show_bug.cgi?id=767255
+---
+ gst/gstbuffer.h     | 13 ++++++++++---
+ gst/gstcaps.h       | 34 +++++++++++++++++++++-------------
+ gst/gstevent.h      | 13 ++++++++++---
+ gst/gstmessage.h    | 13 ++++++++++---
+ gst/gstminiobject.h | 16 ++++++++++++++++
+ 5 files changed, 67 insertions(+), 22 deletions(-)
+
+diff --git a/gst/gstbuffer.h b/gst/gstbuffer.h
+index 4d72471..6a1eb59 100644
+--- a/gst/gstbuffer.h
++++ b/gst/gstbuffer.h
+@@ -350,7 +350,8 @@ void        gst_buffer_extract_dup         (GstBuffer *buffer, gsize offset,
+ static inline GstBuffer *
+ gst_buffer_ref (GstBuffer * buf)
+ {
+-  return (GstBuffer *) gst_mini_object_ref (GST_MINI_OBJECT_CAST (buf));
++  gst_mini_object_ref (&buf->mini_object);
++  return buf;
+ }
+ 
+ /**
+@@ -363,7 +364,7 @@ gst_buffer_ref (GstBuffer * buf)
+ static inline void
+ gst_buffer_unref (GstBuffer * buf)
+ {
+-  gst_mini_object_unref (GST_MINI_OBJECT_CAST (buf));
++  gst_mini_object_unref (&buf->mini_object);
+ }
+ 
+ /* copy buffer */
+@@ -382,7 +383,13 @@ gst_buffer_unref (GstBuffer * buf)
+ static inline GstBuffer *
+ gst_buffer_copy (const GstBuffer * buf)
+ {
+-  return GST_BUFFER (gst_mini_object_copy (GST_MINI_OBJECT_CONST_CAST (buf)));
++  union {
++    GstMiniObject *mo;
++    GstBuffer *buffer;
++  } u;
++
++  u.mo = gst_mini_object_copy (&buf->mini_object);
++  return u.buffer;
+ }
+ 
+ GstBuffer * gst_buffer_copy_deep (const GstBuffer * buf);
+diff --git a/gst/gstcaps.h b/gst/gstcaps.h
+index b9d00dd..6bc9b87 100644
+--- a/gst/gstcaps.h
++++ b/gst/gstcaps.h
+@@ -35,6 +35,16 @@ GST_EXPORT GType _gst_caps_type;
+ #define GST_CAPS_CAST(obj)        ((GstCaps*)(obj))
+ #define GST_CAPS(obj)             (GST_CAPS_CAST(obj))
+ 
++/**
++ * GstCaps:
++ * @mini_object: the parent type
++ *
++ * Object describing media types.
++ */
++struct _GstCaps {
++  GstMiniObject mini_object;
++};
++
+ #define GST_TYPE_STATIC_CAPS      (gst_static_caps_get_type())
+ 
+ /**
+@@ -187,6 +197,7 @@ GST_EXPORT GstCaps * _gst_caps_none;
+  */
+ #define GST_CAPS_FLAG_UNSET(caps,flag)         GST_MINI_OBJECT_FLAG_UNSET (caps, flag)
+ 
++
+ /* refcounting */
+ /**
+  * gst_caps_ref:
+@@ -206,7 +217,8 @@ GST_EXPORT GstCaps * _gst_caps_none;
+ static inline GstCaps *
+ gst_caps_ref (GstCaps * caps)
+ {
+-  return (GstCaps *) gst_mini_object_ref (GST_MINI_OBJECT_CAST (caps));
++  gst_mini_object_ref (&caps->mini_object);
++  return caps;
+ }
+ 
+ /**
+@@ -219,7 +231,7 @@ gst_caps_ref (GstCaps * caps)
+ static inline void
+ gst_caps_unref (GstCaps * caps)
+ {
+-  gst_mini_object_unref (GST_MINI_OBJECT_CAST (caps));
++  gst_mini_object_unref (&caps->mini_object);
+ }
+ 
+ /* copy caps */
+@@ -241,7 +253,13 @@ gst_caps_unref (GstCaps * caps)
+ static inline GstCaps *
+ gst_caps_copy (const GstCaps * caps)
+ {
+-  return GST_CAPS (gst_mini_object_copy (GST_MINI_OBJECT_CAST (caps)));
++  union {
++    GstMiniObject *mo;
++    GstCaps *caps;
++  } u;
++
++  u.mo = gst_mini_object_copy (&caps->mini_object);
++  return u.caps;
+ }
+ 
+ /**
+@@ -316,16 +334,6 @@ gst_caps_take (GstCaps **old_caps, GstCaps *new_caps)
+ }
+ 
+ /**
+- * GstCaps:
+- * @mini_object: the parent type
+- *
+- * Object describing media types.
+- */
+-struct _GstCaps {
+-  GstMiniObject mini_object;
+-};
+-
+-/**
+  * GstStaticCaps:
+  * @caps: the cached #GstCaps
+  * @string: a string describing a caps
+diff --git a/gst/gstevent.h b/gst/gstevent.h
+index e7dbb25..65e4272 100644
+--- a/gst/gstevent.h
++++ b/gst/gstevent.h
+@@ -425,7 +425,8 @@ GstEventTypeFlags
+ static inline GstEvent *
+ gst_event_ref (GstEvent * event)
+ {
+-  return (GstEvent *) gst_mini_object_ref (GST_MINI_OBJECT_CAST (event));
++  gst_mini_object_ref (&event->mini_object);
++  return event;
+ }
+ 
+ /**
+@@ -437,7 +438,7 @@ gst_event_ref (GstEvent * event)
+ static inline void
+ gst_event_unref (GstEvent * event)
+ {
+-  gst_mini_object_unref (GST_MINI_OBJECT_CAST (event));
++  gst_mini_object_unref (&event->mini_object);
+ }
+ 
+ /* copy event */
+@@ -452,7 +453,13 @@ gst_event_unref (GstEvent * event)
+ static inline GstEvent *
+ gst_event_copy (const GstEvent * event)
+ {
+-  return GST_EVENT_CAST (gst_mini_object_copy (GST_MINI_OBJECT_CONST_CAST (event)));
++  union {
++    GstMiniObject *mo;
++    GstEvent *event;
++  } u;
++
++  u.mo = gst_mini_object_copy (&event->mini_object);
++  return u.event;
+ }
+ 
+ GType           gst_event_get_type              (void);
+diff --git a/gst/gstmessage.h b/gst/gstmessage.h
+index 68213eb..b585729 100644
+--- a/gst/gstmessage.h
++++ b/gst/gstmessage.h
+@@ -354,7 +354,8 @@ GQuark          gst_message_type_to_quark       (GstMessageType type);
+ static inline GstMessage *
+ gst_message_ref (GstMessage * msg)
+ {
+-  return (GstMessage *) gst_mini_object_ref (GST_MINI_OBJECT_CAST (msg));
++  gst_mini_object_ref (&msg->mini_object);
++  return msg;
+ }
+ 
+ /**
+@@ -367,7 +368,7 @@ gst_message_ref (GstMessage * msg)
+ static inline void
+ gst_message_unref (GstMessage * msg)
+ {
+-  gst_mini_object_unref (GST_MINI_OBJECT_CAST (msg));
++  gst_mini_object_unref (&msg->mini_object);
+ }
+ 
+ /* copy message */
+@@ -384,7 +385,13 @@ gst_message_unref (GstMessage * msg)
+ static inline GstMessage *
+ gst_message_copy (const GstMessage * msg)
+ {
+-  return GST_MESSAGE_CAST (gst_mini_object_copy (GST_MINI_OBJECT_CONST_CAST (msg)));
++  union {
++    GstMiniObject *mo;
++    GstMessage *msg;
++  } u;
++
++  u.mo = gst_mini_object_copy (&msg->mini_object);
++  return u.msg;
+ }
+ 
+ /**
+diff --git a/gst/gstminiobject.h b/gst/gstminiobject.h
+index 88eb080..3763e64 100644
+--- a/gst/gstminiobject.h
++++ b/gst/gstminiobject.h
+@@ -269,6 +269,22 @@ GstMiniObject * gst_mini_object_steal           (GstMiniObject **olddata) G_GNUC
+        (GBoxedCopyFunc) gst_mini_object_ref,            \
+        (GBoxedFreeFunc) gst_mini_object_unref)
+ 
++/* FIXME */
++#if 0
++/**
++ * GST_DEFINE_MINI_OBJECT_INLINE_FUNCS:
++ * @TypeName: name of the new type in CamelCase
++ * @type_name: name of the new type
++ *
++ * Use in header file to declare standard inline ref, unref and copy functions
++ * for a mini object type. Assumes first member of the @TypeName structure is
++ * called mini_object.
++ *
++ * Since: 1.10
++ */
++#define GST_DEFINE_MINI_OBJECT_INLINE_FUNCS(TypeName,type_name) /* FIXME */
++#endif
++
+ G_END_DECLS
+ 
+ #endif
+-- 
+2.8.1
+
