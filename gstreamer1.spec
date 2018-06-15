@@ -10,7 +10,7 @@
 
 Name:           gstreamer1
 Version:        1.14.1
-Release:        4%{?gitcommit:.git%{shortcommit}}%{?dist}
+Release:        5%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 License:        LGPLv2+
@@ -54,9 +54,6 @@ BuildRequires:  transfig
 BuildRequires:  netpbm-progs
 BuildRequires:  texlive-dvips
 BuildRequires:  ghostscript
-%if 0%{?fedora} || 0%{?rhel} > 7
-BuildRequires:  xfig
-%endif
 
 %description
 GStreamer is a streaming media framework, based on graphs of filters which
@@ -204,6 +201,10 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %changelog
+* Fri Jun 15 2018 Wim Taymans <wtaymans@redhat.com> - 1.14.1-5
+- Remove xfig build dependency. It has not been needed since
+  version 1.2.0
+
 * Wed Jun 06 2018 Bastien Nocera <bnocera@redhat.com> - 1.14.1-4
 - Remove -Wcast-align fix patch, it's not complete
 
