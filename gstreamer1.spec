@@ -10,7 +10,7 @@
 
 Name:           gstreamer1
 Version:        1.14.1
-Release:        5%{?gitcommit:.git%{shortcommit}}%{?dist}
+Release:        6%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 License:        LGPLv2+
@@ -201,6 +201,9 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %changelog
+* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
+
 * Fri Jun 15 2018 Wim Taymans <wtaymans@redhat.com> - 1.14.1-5
 - Remove xfig build dependency. It has not been needed since
   version 1.2.0
