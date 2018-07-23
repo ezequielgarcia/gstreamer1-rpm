@@ -9,8 +9,8 @@
 %global         _gobject_introspection  1.31.1
 
 Name:           gstreamer1
-Version:        1.14.1
-Release:        6%{?gitcommit:.git%{shortcommit}}%{?dist}
+Version:        1.14.2
+Release:        1%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 License:        LGPLv2+
@@ -201,6 +201,9 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %changelog
+* Mon Jul 23 2018 Wim Taymans <wtaymans@redhat.com> - 1.14.2-1
+- Update to 1.14.2
+
 * Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
 
