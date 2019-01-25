@@ -7,9 +7,10 @@
 %global         _glib2                  2.32.0
 %global         _libxml2                2.4.0
 %global         _gobject_introspection  1.31.1
+%global 	__python %{__python3}
 
 Name:           gstreamer1
-Version:        1.14.4
+Version:        1.15.1
 Release:        1%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
@@ -43,7 +44,7 @@ BuildRequires:  automake gettext-devel libtool
 BuildRequires:  chrpath
 
 ### documentation requirements
-BuildRequires:  python2
+BuildRequires:  python3
 BuildRequires:  openjade
 BuildRequires:  texlive-jadetex
 BuildRequires:  libxslt
@@ -188,6 +189,10 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 %{_datadir}/aclocal/gst-element-check-%{majorminor}.m4
 
+%dir %{_datadir}/gstreamer-%{majorminor}/gdb/
+%{_datadir}/gstreamer-%{majorminor}/gdb/
+%{_datadir}/gdb/auto-load/
+
 %{_libdir}/pkgconfig/gstreamer-%{majorminor}.pc
 %{_libdir}/pkgconfig/gstreamer-base-%{majorminor}.pc
 %{_libdir}/pkgconfig/gstreamer-controller-%{majorminor}.pc
@@ -201,6 +206,9 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %changelog
+* Fri Jan 25 2019 Wim Taymans <wtaymans@redhat.com> - 1.15.1-1
+- Update to 1.15.1
+
 * Wed Oct 03 2018 Wim Taymans <wtaymans@redhat.com> - 1.14.4-1
 - Update to 1.14.4
 
