@@ -10,8 +10,8 @@
 %global 	__python %{__python3}
 
 Name:           gstreamer1
-Version:        1.16.0
-Release:        2%{?gitcommit:.git%{shortcommit}}%{?dist}
+Version:        1.16.1
+Release:        1%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 License:        LGPLv2+
@@ -38,6 +38,7 @@ BuildRequires:  check-devel
 BuildRequires:  gtk-doc >= 1.3
 BuildRequires:  gettext
 BuildRequires:  pkgconfig
+BuildRequires:  libcap-devel
 
 # ./autogen.sh deps
 BuildRequires:  automake gettext-devel libtool
@@ -104,7 +105,9 @@ NOCONFIGURE=1 \
   --enable-debug \
   --disable-fatal-warnings \
   --disable-silent-rules \
-  --disable-tests --disable-examples
+  --disable-tests --disable-examples \
+  --with-ptp-helper-permissions=capabilities
+
 
 %make_build V=1
 
@@ -206,6 +209,10 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %changelog
+* Tue Sep 24 2019 Wim Taymans <wtaymans@redhat.com> - 1.16.1-1
+- Update to 1.16.1
+- Enable libcap for the ptp helper permissions
+
 * Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
 
