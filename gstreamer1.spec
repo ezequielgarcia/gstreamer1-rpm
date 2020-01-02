@@ -10,7 +10,7 @@
 %global 	__python %{__python3}
 
 Name:           gstreamer1
-Version:        1.16.1
+Version:        1.16.2
 Release:        1%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
@@ -209,6 +209,9 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %changelog
+* Thu Jan 2 2020 Wim Taymans <wtaymans@redhat.com> - 1.16.2-1
+- Update to 1.16.2
+
 * Tue Sep 24 2019 Wim Taymans <wtaymans@redhat.com> - 1.16.1-1
 - Update to 1.16.1
 - Enable libcap for the ptp helper permissions
