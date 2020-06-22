@@ -40,6 +40,8 @@ BuildRequires:  gettext
 BuildRequires:  pkgconfig
 BuildRequires:  libcap-devel
 BuildRequires:  libunwind-devel
+BuildRequires:  elfutils-devel
+BuildRequires:  bash-completion
 
 %description
 GStreamer is a streaming media framework, based on graphs of filters which
@@ -89,6 +91,7 @@ GStreamer streaming media framework.
   -D ptp-helper-permissions=capabilities \
   -D dbghelp=disabled \
   -D doc=disabled
+%meson_build
 
 %install
 %meson_install
@@ -190,7 +193,7 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 - Update to meson build
 - Disable docs because it needs Hotdoc, which is not in Fedora yet
 - remove BuildRequires: for gtk-doc and autoconf related things
-- Add BuildRequires: for libunwind-devel 
+- Add BuildRequires: for libunwind-devel, elfutils-devel, bash-completion
 
 * Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
