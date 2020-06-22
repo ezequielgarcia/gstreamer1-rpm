@@ -39,6 +39,7 @@ BuildRequires:  check-devel
 BuildRequires:  gettext
 BuildRequires:  pkgconfig
 BuildRequires:  libcap-devel
+BuildRequires:  libunwind-devel
 
 %description
 GStreamer is a streaming media framework, based on graphs of filters which
@@ -189,6 +190,7 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 - Update to meson build
 - Disable docs because it needs Hotdoc, which is not in Fedora yet
 - remove BuildRequires: for gtk-doc and autoconf related things
+- Add BuildRequires: for libunwind-devel 
 
 * Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
