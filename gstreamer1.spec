@@ -11,7 +11,7 @@
 
 Name:           gstreamer1
 Version:        1.17.1
-Release:        1%{?gitcommit:.git%{shortcommit}}%{?dist}
+Release:        2%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 License:        LGPLv2+
@@ -86,7 +86,6 @@ GStreamer streaming media framework.
   -D package-name='Fedora GStreamer package' \
   -D package-origin='http://download.fedoraproject.org' \
   -D gtk_doc=disabled \
-  -D gst_debug=false \
   -D tests=disabled -D examples=disabled \
   -D ptp-helper-permissions=capabilities \
   -D dbghelp=disabled \
@@ -188,6 +187,9 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %changelog
+* Mon Jun 22 2020 Wim Taymans <wtaymans@redhat.com> - 1.17.1-2
+- Enable debug again
+
 * Mon Jun 22 2020 Wim Taymans <wtaymans@redhat.com> - 1.17.1-1
 - Update to 1.17.1
 - Update to meson build
