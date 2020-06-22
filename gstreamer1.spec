@@ -10,8 +10,8 @@
 %global 	__python %{__python3}
 
 Name:           gstreamer1
-Version:        1.16.2
-Release:        2%{?gitcommit:.git%{shortcommit}}%{?dist}
+Version:        1.17.1
+Release:        1%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 License:        LGPLv2+
@@ -28,34 +28,17 @@ Patch0:         gstreamer-inspect-rpm-format.patch
 Source1:        gstreamer1.prov
 Source2:        gstreamer1.attr
 
+BuildRequires:  meson >= 0.48.0
+BuildRequires:  gcc
 BuildRequires:  glib2-devel >= %{_glib2}
 BuildRequires:  libxml2-devel >= %{_libxml2}
 BuildRequires:  gobject-introspection-devel >= %{_gobject_introspection}
 BuildRequires:  bison
 BuildRequires:  flex
-BuildRequires:  m4
 BuildRequires:  check-devel
-BuildRequires:  gtk-doc >= 1.3
 BuildRequires:  gettext
 BuildRequires:  pkgconfig
 BuildRequires:  libcap-devel
-
-# ./autogen.sh deps
-BuildRequires:  automake gettext-devel libtool
-BuildRequires:  chrpath
-
-### documentation requirements
-BuildRequires:  python3
-BuildRequires:  openjade
-BuildRequires:  texlive-jadetex
-BuildRequires:  libxslt
-BuildRequires:  docbook-style-dsssl
-BuildRequires:  docbook-style-xsl
-BuildRequires:  docbook-utils
-BuildRequires:  transfig
-BuildRequires:  netpbm-progs
-BuildRequires:  texlive-dvips
-BuildRequires:  ghostscript
 
 %description
 GStreamer is a streaming media framework, based on graphs of filters which
@@ -79,7 +62,7 @@ Conflicts:      gstreamer1-plugins-bad-free-devel < 1.13
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
 
-
+%if 0
 %package devel-docs
 Summary:         Developer documentation for GStreamer streaming media framework
 Requires:        %{name} = %{version}-%{release}
@@ -88,6 +71,7 @@ BuildArch:       noarch
 %description devel-docs
 This %{name}-devel-docs contains developer documentation for the
 GStreamer streaming media framework.
+%endif
 
 
 %prep
@@ -95,35 +79,24 @@ GStreamer streaming media framework.
 %patch0 -p1 -b .rpm-provides
 
 %build
-NOCONFIGURE=1 \
-./autogen.sh
-
-%configure \
-  --with-package-name='Fedora GStreamer package' \
-  --with-package-origin='http://download.fedoraproject.org' \
-  --enable-gtk-doc \
-  --enable-debug \
-  --disable-fatal-warnings \
-  --disable-silent-rules \
-  --disable-tests --disable-examples \
-  --with-ptp-helper-permissions=capabilities
-
-
-%make_build V=1
-
+%meson	\
+  -D package-name='Fedora GStreamer package' \
+  -D package-origin='http://download.fedoraproject.org' \
+  -D gtk_doc=disabled \
+  -D gst_debug=false \
+  -D tests=disabled -D examples=disabled \
+  -D ptp-helper-permissions=capabilities \
+  -D dbghelp=disabled \
+  -D doc=disabled
 
 %install
-%make_install
+%meson_install
 
 %find_lang gstreamer-%{majorminor}
-# Clean out files that should not be part of the rpm.
-find $RPM_BUILD_ROOT -name '*.la' -exec rm -fv {} ';'
-find $RPM_BUILD_ROOT -name '*.a' -exec rm -fv {} ';'
 # Add the provides script
 install -m0755 -D %{SOURCE1} $RPM_BUILD_ROOT%{_rpmconfigdir}/gstreamer1.prov
 # Add the gstreamer plugin file attribute entry (rpm >= 4.9.0)
 install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer1.attr
-
 
 %ldconfig_scriptlets
 
@@ -202,13 +175,21 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 %{_libdir}/pkgconfig/gstreamer-check-%{majorminor}.pc
 %{_libdir}/pkgconfig/gstreamer-net-%{majorminor}.pc
 
+%if 0
 %files devel-docs
 %doc %{_datadir}/gtk-doc/html/gstreamer-%{majorminor}
 %doc %{_datadir}/gtk-doc/html/gstreamer-libs-%{majorminor}
 %doc %{_datadir}/gtk-doc/html/gstreamer-plugins-%{majorminor}
+%endif
 
 
 %changelog
+* Mon Jun 22 2020 Wim Taymans <wtaymans@redhat.com> - 1.17.1-1
+- Update to 1.17.1
+- Update to meson build
+- Disable docs because it needs Hotdoc, which is not in Fedora yet
+- remove BuildRequires: for gtk-doc and autoconf related things
+
 * Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
 
