@@ -10,7 +10,7 @@
 %global 	__python %{__python3}
 
 Name:           gstreamer1
-Version:        1.18.0
+Version:        1.18.1
 Release:        1%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
@@ -187,6 +187,9 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %changelog
+* Fri Oct 30 2020 Wim Taymans <wtaymans@redhat.com> - 1.18.1-1
+- Update to 1.18.1
+
 * Tue Sep 8 2020 Wim Taymans <wtaymans@redhat.com> - 1.18.0-1
 - Update to 1.18.0
 
