@@ -10,8 +10,8 @@
 %global 	__python %{__python3}
 
 Name:           gstreamer1
-Version:        1.18.2
-Release:        3%{?gitcommit:.git%{shortcommit}}%{?dist}
+Version:        1.18.4
+Release:        1%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 License:        LGPLv2+
@@ -189,6 +189,9 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %changelog
+* Tue Mar 16 2021 Wim Taymans <wtaymans@redhat.com> - 1.18.4-1
+- Update to 1.18.4
+
 * Tue Feb 23 2021 Wim Taymans <wtaymans@redhat.com> - 1.18.2-3
 - Use libunwind only on fedora
 
