@@ -9,9 +9,15 @@
 %global         _gobject_introspection  1.31.1
 %global 	__python %{__python3}
 
+%if 0%{?fedora}
+%bcond_without unwind
+%else
+%bcond_with unwind
+%endif
+
 Name:           gstreamer1
 Version:        1.18.4
-Release:        1%{?gitcommit:.git%{shortcommit}}%{?dist}
+Release:        2%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 License:        LGPLv2+
@@ -39,7 +45,7 @@ BuildRequires:  check-devel
 BuildRequires:  gettext
 BuildRequires:  pkgconfig
 BuildRequires:  libcap-devel
-%if 0%{?fedora}
+%if %{with unwind}
 BuildRequires:  libunwind-devel
 %endif
 BuildRequires:  elfutils-devel
@@ -90,6 +96,7 @@ GStreamer streaming media framework.
   -D gtk_doc=disabled \
   -D tests=disabled -D examples=disabled \
   -D ptp-helper-permissions=capabilities \
+  %{!?with_unwind:-D libunwind=disabled -D libdw=disabled } \
   -D dbghelp=disabled \
   -D doc=disabled
 %meson_build
@@ -189,6 +196,9 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %changelog
+* Tue Apr 6 2021 Wim Taymans <wtaymans@redhat.com> - 1.18.4-2
+- Fix build options to disable libunwind and libdw
+
 * Tue Mar 16 2021 Wim Taymans <wtaymans@redhat.com> - 1.18.4-1
 - Update to 1.18.4
 
