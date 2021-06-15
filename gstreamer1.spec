@@ -15,9 +15,14 @@
 %bcond_with unwind
 %endif
 
+# The 1.19.1 development release was wrongly pushed into stable f34.
+# Instead of updating the epoch, 1.19.1-1.18.4.x is used because this
+# is a temporary version problem that will resolve itself in f35.
+%global realversion 1.18.4
+
 Name:           gstreamer1
 Version:        1.19.1
-Release:        1%{?gitcommit:.git%{shortcommit}}%{?dist}
+Release:        %{realversion}.1%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 License:        LGPLv2+
@@ -25,9 +30,9 @@ URL:            http://gstreamer.freedesktop.org/
 %if 0%{?gitrel}
 # git clone git://anongit.freedesktop.org/gstreamer/gstreamer
 # cd gstreamer; git reset --hard %{gitcommit}; ./autogen.sh; make; make distcheck
-Source0:        gstreamer-%{version}.tar.xz
+Source0:        gstreamer-%{realversion}.tar.xz
 %else
-Source0:        http://gstreamer.freedesktop.org/src/gstreamer/gstreamer-%{version}.tar.xz
+Source0:        http://gstreamer.freedesktop.org/src/gstreamer/gstreamer-%{realversion}.tar.xz
 %endif
 ## For GStreamer RPM provides
 Patch0:         gstreamer-inspect-rpm-format.patch
@@ -86,7 +91,7 @@ GStreamer streaming media framework.
 
 
 %prep
-%setup -q -n gstreamer-%{version}
+%setup -q -n gstreamer-%{realversion}
 %patch0 -p1 -b .rpm-provides
 
 %build
@@ -196,8 +201,9 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %changelog
-* Thu Jun 03 2021 Wim Taymans <wtaymans@redhat.com> - 1.19.1-1
-- Update to 1.19.1
+* Tue Jun 15 2021 Wim Taymans <wtaymans@redhat.com> - 1.19.1-1.18.4.1
+- Reverted from wrong unstable 1.19.1 update. F34 should keep the
+  stable 1.18.4 version.
 
 * Tue Apr 6 2021 Wim Taymans <wtaymans@redhat.com> - 1.18.4-2
 - Fix build options to disable libunwind and libdw
