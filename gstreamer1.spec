@@ -22,7 +22,7 @@
 
 Name:           gstreamer1
 Version:        1.19.1
-Release:        1.%{realversion}%{?gitcommit:.git%{shortcommit}}%{?dist}
+Release:        2.%{realversion}%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 License:        LGPLv2+
@@ -201,6 +201,9 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %changelog
+* Thu Jun 17 2021 Wim Taymans <wtaymans@redhat.com> - 1.19.1-2.1.18.4
+- Bump for rebuild
+
 * Thu Jun 17 2021 Wim Taymans <wtaymans@redhat.com> - 1.19.1-1.1.18.4
 - Move baserelease before real version
 
