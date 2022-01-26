@@ -17,7 +17,7 @@
 
 Name:           gstreamer1
 Version:        1.19.3
-Release:        2%{?gitcommit:.git%{shortcommit}}%{?dist}
+Release:        3%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 License:        LGPLv2+
@@ -93,7 +93,6 @@ GStreamer streaming media framework.
 %meson	\
   -D package-name='Fedora GStreamer package' \
   -D package-origin='http://download.fedoraproject.org' \
-  -D gtk_doc=disabled \
   -D tests=disabled -D examples=disabled \
   -D ptp-helper-permissions=capabilities \
   %{!?with_unwind:-D libunwind=disabled -D libdw=disabled } \
@@ -196,6 +195,9 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %changelog
+* Wed Jan 26 2022 Wim Taymans <wtaymans@redhat.com> - 1.19.3-3
+- Fix build, gtk_doc does not exist anymore.
+
 * Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.19.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
 
