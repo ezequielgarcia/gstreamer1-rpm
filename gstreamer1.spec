@@ -16,7 +16,7 @@
 %endif
 
 Name:           gstreamer1
-Version:        1.20.0
+Version:        1.20.1
 Release:        1%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
@@ -113,7 +113,7 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 %files -f gstreamer-%{majorminor}.lang
 %license COPYING
-%doc AUTHORS NEWS README RELEASE
+%doc AUTHORS NEWS README.md RELEASE
 %{_libdir}/libgstreamer-%{majorminor}.so.*
 %{_libdir}/libgstbase-%{majorminor}.so.*
 %{_libdir}/libgstcheck-%{majorminor}.so.*
@@ -195,6 +195,9 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %changelog
+* Sun Apr 17 2022 Onuralp SEZER <thunderbirdtr@fedoraproject.org> - 1.20.1-1
+- Update to 1.20.1
+
 * Fri Feb 4 2022 Wim Taymans <wtaymans@redhat.com> - 1.20.0-1
 - Update to 1.20.0
 
