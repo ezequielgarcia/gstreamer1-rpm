@@ -17,7 +17,7 @@
 
 Name:           gstreamer1
 Version:        1.22.1
-Release:        1%{?gitcommit:.git%{shortcommit}}%{?dist}
+Release:        2%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
 License:        LGPLv2+
@@ -102,6 +102,7 @@ GStreamer streaming media framework.
 
 %install
 %meson_install
+install -m 644 -D tests/check/gstreamer.supp %{buildroot}%{_datadir}/gstreamer-%{majorminor}/gstreamer.supp
 
 %find_lang gstreamer-%{majorminor}
 # Add the provides script
@@ -178,6 +179,7 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 %dir %{_datadir}/gstreamer-%{majorminor}/gdb/
 %{_datadir}/gstreamer-%{majorminor}/gdb/
+%{_datadir}/gstreamer-%{majorminor}/gstreamer.supp
 %{_datadir}/gdb/auto-load/
 
 %{_libdir}/pkgconfig/gstreamer-%{majorminor}.pc
@@ -195,6 +197,9 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %changelog
+* Sat Mar 18 2023 W. Michael Petullo <mike@flyn.org> - 1.22.1-2
+- Distribute gstreamer.supp
+
 * Mon Mar 13 2023 Wim Taymans <wtaymans@redhat.com> - 1.22.1-1
 - Update to 1.22.1
 
