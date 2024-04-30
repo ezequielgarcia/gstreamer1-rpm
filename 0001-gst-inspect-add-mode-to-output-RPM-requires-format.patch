@@ -339,14 +339,6 @@ index 7edd8634a5..d38bf1fbd8 100644
    }
    gst_plugin_list_free (orig_plugins);
  }
-@@ -2169,6 +2408,7 @@ real_main (int argc, char *argv[])
-   gboolean do_print_blacklist = FALSE;
-   gboolean plugin_name = FALSE;
-   gboolean print_aii = FALSE;
-+  gboolean print_aii_rpm = FALSE;
-   gboolean uri_handlers = FALSE;
-   gboolean check_exists = FALSE;
-   gboolean color_always = FALSE;
 @@ -2190,6 +2430,9 @@ real_main (int argc, char *argv[])
                "or all plugins provide.\n                                       "
                "Useful in connection with external automatic plugin "
@@ -390,3 +382,13 @@ index 7edd8634a5..d38bf1fbd8 100644
 -- 
 2.43.2
 
+--- a/a/a/tools/gst-inspect.c~	2024-04-30 08:50:02.603031028 -0500
++++ b/b/b/tools/gst-inspect.c	2024-04-30 08:51:26.239844637 -0500
+@@ -2408,6 +2408,7 @@
+   gboolean do_print_blacklist = FALSE;
+   gboolean plugin_name = FALSE;
+   gboolean print_aii = FALSE;
++  gboolean print_aii_rpm = FALSE;
+   gboolean uri_handlers = FALSE;
+   gboolean check_exists = FALSE;
+   gboolean check_version = FALSE;

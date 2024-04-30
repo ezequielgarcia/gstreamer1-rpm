@@ -16,7 +16,7 @@
 %endif
 
 Name:           gstreamer1
-Version:        1.24.0
+Version:        1.24.3
 Release:        1%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
@@ -127,7 +127,7 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 %{_libexecdir}/gstreamer-%{majorminor}/gst-plugins-doc-cache-generator
 %{_libexecdir}/gstreamer-%{majorminor}/gst-plugin-scanner
 %attr(755,root,root) %caps(cap_net_bind_service,cap_net_admin,cap_sys_nice=ep) %{_libexecdir}/gstreamer-%{majorminor}/gst-ptp-helper
-%{_libexecdir}/gstreamer-%{majorminor}/gst-ptp-helper-test
+#%%{_libexecdir}/gstreamer-%%{majorminor}/gst-ptp-helper-test
 
 %dir %{_libdir}/gstreamer-%{majorminor}
 %{_libdir}/gstreamer-%{majorminor}/libgstcoreelements.so
@@ -202,6 +202,9 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %changelog
+* Tue Apr 30 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.24.3-1
+- 1.24.3
+
 * Tue Mar 05 2024 Wim Taymans <wtaymans@redhat.com> - 1.24.0-1
 - Update to 1.24.0
 
