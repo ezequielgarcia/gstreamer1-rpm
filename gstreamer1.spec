@@ -49,7 +49,7 @@ BuildRequires:  libcap-devel
 BuildRequires:  libunwind-devel
 %endif
 BuildRequires:  elfutils-devel
-BuildRequires:  bash-completion-devel
+BuildRequires:  bash-completion
 BuildRequires:  rustc
 
 %description
