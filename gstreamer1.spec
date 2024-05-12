@@ -49,7 +49,11 @@ BuildRequires:  libcap-devel
 BuildRequires:  libunwind-devel
 %endif
 BuildRequires:  elfutils-devel
+%if 0%{?fedora} >= 41 || 0%{?rhel} >= 11 
 BuildRequires:  bash-completion-devel
+%else
+BuildRequires: bash-completion
+%endif
 BuildRequires:  rustc
 
 %description
