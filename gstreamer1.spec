@@ -16,7 +16,7 @@
 %endif
 
 Name:           gstreamer1
-Version:        1.24.3
+Version:        1.24.4
 Release:        1%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
@@ -49,7 +49,11 @@ BuildRequires:  libcap-devel
 BuildRequires:  libunwind-devel
 %endif
 BuildRequires:  elfutils-devel
-BuildRequires:  bash-completion
+%if 0%{?fedora} >= 41 || 0%{?rhel} >= 11 
+BuildRequires:  bash-completion-devel
+%else
+BuildRequires: bash-completion
+%endif
 BuildRequires:  rustc
 
 %description
@@ -202,6 +206,9 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %changelog
+* Wed May 29 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.24.4-1
+- 1.24.4
+
 * Tue Apr 30 2024 Gwyn Ciesla <gwync@protonmail.com> - 1.24.3-1
 - 1.24.3
 
