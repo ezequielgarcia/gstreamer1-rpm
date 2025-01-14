@@ -16,7 +16,7 @@
 %endif
 
 Name:           gstreamer1
-Version:        1.25.1
+Version:        1.24.11
 Release:        1%{?dist}
 Summary:        GStreamer streaming media framework runtime
 
@@ -206,9 +206,6 @@ install -m0644 -D %{SOURCE2} $RPM_BUILD_ROOT%{_rpmconfigdir}/fileattrs/gstreamer
 
 
 %changelog
-* Tue Jan 14 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.25.1-1
-- 1.25.1
-
 * Tue Jan 07 2025 Gwyn Ciesla <gwync@protonmail.com> - 1.24.11-1
 - 1.24.11
 
