@@ -34,7 +34,7 @@ Patch0:         0001-gst-inspect-add-mode-to-output-RPM-requires-format.patch
 Source1:        gstreamer1.prov
 Source2:        gstreamer1.attr
 
-BuildRequires:  meson >= 0.48.0
+BuildRequires:  meson >= 1.1.0
 BuildRequires:  gcc
 BuildRequires:  glib2-devel >= %{_glib2}
 BuildRequires:  libxml2-devel >= %{_libxml2}
